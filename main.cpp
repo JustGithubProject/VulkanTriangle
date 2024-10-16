@@ -8,6 +8,16 @@
 const uint32_t WIDTH = 800;
 const uint32_t HEIGHT = 600;
 
+const std::vector<const char*> validationsLayers = {
+    "VK_LAYER_KHRONOS_validation"
+};
+
+#ifdef NDEBUG
+    const bool enableValidationLayers = false;
+#else
+    const bool enableValidationLayers = true;
+#endif
+
 class TriangleApplication {
 public:
     void run() {
@@ -71,8 +81,22 @@ private:
     }
 
     void cleanup() {
+        vkDestroyInstance(instance, nullptr);
         glfwDestroyWindow(window);
         glfwTerminate();
+    }
+
+    bool checkValidationLayerSupport() {
+        uint32_t layerCount;
+        vkEnumerateInstanceLayerProperties(&layerCount, nullptr);
+        
+        std::vector<VkLayerProperties> availableLayers(layerCount);
+
+        // availableLayers.data() means pointer to first item of an array
+        vkEnumerateInstanceLayerProperties(&layerCount, availableLayers.data());
+
+        // TODO ...
+        return false;
     }
 };
 
