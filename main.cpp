@@ -20,6 +20,11 @@ const std::vector<const char*> validationLayers = {
     const bool enableValidationLayers = true;
 #endif
 
+struct Vertex {
+    glm::vec2 pos;
+    glm::vec3 color;
+}
+
 class TriangleApplication {
 public:
     void run() {
@@ -96,7 +101,6 @@ private:
     }
 
     VkShaderModule createShaderModule(const std::vector<char>& code) {
-        // TODO: ...
         VkShaderModuleCreateInfo createInfo = {};
         createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
         createInfo.codeSize = code.size();
